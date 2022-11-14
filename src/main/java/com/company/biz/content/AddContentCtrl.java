@@ -28,7 +28,7 @@ public class AddContentCtrl extends HttpServlet{
 		
 		// insert,update,delete,또는 select의 조건값이 넘어올 경우 넘어오는 값을 받는다.
 		request.setCharacterEncoding("UTF-8");
-		String content=request.getParameter("content");
+		String genre=request.getParameter("genre");
 		String contentname=request.getParameter("contentname");
 		String author=request.getParameter("author");
 		String publisher=request.getParameter("publisher");
@@ -40,10 +40,10 @@ public class AddContentCtrl extends HttpServlet{
 		
 		try {
 			conn=JDBCUtil.getConnection();
-			String sql="insert into content_tbl(contentcode,content,contentname,author,publisher,publicationdate,price)\r\n"
+			String sql="insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)\r\n"
 					+ "values((select nvl(max(contentcode)+1,000001) from content_tbl),?,?,?,?,?,?)";
 			stmt=conn.prepareStatement(sql);
-			stmt.setString(1,content);
+			stmt.setString(1,genre);
 			stmt.setString(2,contentname);
 			stmt.setString(3,author);
 			stmt.setString(4,publisher);

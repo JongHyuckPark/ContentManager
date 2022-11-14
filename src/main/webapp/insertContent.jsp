@@ -30,7 +30,7 @@
 				</tr>
 				<tr>
 					<td style="width: 200px;">제품종류</td>
-					<td style="width: 200px;"><input type="text" name="content"></td>
+					<td style="width: 200px;"><input type="text" name="genre"></td>
 
 				</tr>
 				<tr>
@@ -62,7 +62,7 @@
 		<script type="text/javascript">
 			function insertContent(){
 				var contentcode=document.addContent.contentcode.value;
-				var content=document.addContent.content.value;
+				var genre=document.addContent.genre.value;
 				var contentname=document.addContent.contentname.value;
 				var author=document.addContent.author.value;
 				var publisher=document.addContent.publisher.value;
@@ -72,9 +72,9 @@
 				if(contentcode=="" || contentcode.length==0){
 					alert('제품코드를 입력하세요.');
 					document.addContent.contentcode.focus();
-				}else if(content=="" || content.length==0){
+				}else if(genre=="" || genre.length==0){
 					alert('제품종류를 입력하세요.');
-					document.addContent.content.focus();
+					document.addContent.genre.focus();
 				}else if(contentname=="" || contentname.length==0){
 					alert('제목을 입력하세요.');
 					document.addContent.contentname.focus();

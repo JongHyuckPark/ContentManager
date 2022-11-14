@@ -36,7 +36,7 @@
 				<tr>
 					<td align="right"><select name="searchCondition">
 							<option value="contentname">제목</option>
-							<option value="content">제품종류</option>
+							<option value="genre">제품종류</option>
 							<option value="author">저자</option>
 					</select> <input type="text" name="searchKeyword"> <input
 						type="submit" value="검색" class="btn btn-primary"></td>
@@ -47,7 +47,7 @@
 
 		<hr>
 
-		<table class="table" style="width: 1200px;">
+		<table class="table" style="width: 1100px;">
 			<tr>
 				<th style="width: 200px;">제품번호</th>
 				<th style="width: 100px;">제품종류</th>
@@ -55,15 +55,14 @@
 				<th style="width: 100px;">저자</th>
 				<th style="width: 150px;">출판사</th>
 				<th style="width: 100px;">발행일</th>
-				<th style="width: 100px;">대여일</th>
-				<th style="width: 100px;">반납일</th>
+				<th style="width: 100px;">대출여부</th>
 				<th style="width: 100px;">가격</th>
 				<th style="width: 100px;">조회수</th>
 			</tr>
 			<c:choose>
 				<c:when test="${empty contentList}">
 					<tr>
-						<td align="center" colspan="5">등록된 글이 없습니다.</td>
+						<td align="center" colspan="8">등록된 글이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -74,14 +73,13 @@
 									<td style="width: 200px;">${content.contentcode }</td>
 								</c:when>
 							</c:choose>
-							<td style="width: 100px;">${content.content }</td>
+							<td style="width: 100px;">${content.genre }</td>
 							<td style="width: 150px;"><a href="GetContentCtrl?contentcode=${content.contentcode }">${content.contentname }</a>
 							</td>
 							<td style="width: 100px;">${content.author }</td>
 							<td style="width: 150px;">${content.publisher }</td>
 							<td style="width: 100px;">${content.publicationdate }</td>
-							<td style="width: 100px;">${content.rentaldate }</td>
-							<td style="width: 100px;">${content.returndate }</td>
+							<td style="width: 100px;">${content.reservation }</td>
 							<td style="width: 100px;">${content.price }</td>
 							<td style="width: 100px;">${content.cnt }</td>
 						</tr>
@@ -91,8 +89,12 @@
 		</table>
 		
 
-		
-		<br> <a href="JoinContentCtrl">새글 등록</a>
+		<c:choose>
+			<c:when test="${id eq 'admin' }">
+				<br> <a href="JoinContentCtrl">새글 등록</a>
+			</c:when>
+		</c:choose>
+
 		
 	</div>
 </body>

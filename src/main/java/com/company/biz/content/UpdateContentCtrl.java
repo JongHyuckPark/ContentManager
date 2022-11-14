@@ -34,28 +34,30 @@ public class UpdateContentCtrl extends HttpServlet{
 			response.sendRedirect("login.jsp");
 		
 		int contentcode=Integer.parseInt(request.getParameter("contentcode"));
-		String content=request.getParameter("content");
+		String genre=request.getParameter("genre");
 		String contentname=request.getParameter("contentname");
 		String author=request.getParameter("author");
 		String publisher=request.getParameter("publisher");
 		String publicationdate=request.getParameter("publicationdate");
+		String reservation=request.getParameter("reservation");
 		int price=Integer.parseInt(request.getParameter("price"));
 		
-		System.out.println(contentcode+" "+content+" "+contentname+" "+author+" "+publisher+" "+publicationdate+" "+price);
+		System.out.println(contentcode+" "+genre+" "+contentname+" "+author+" "+publisher+" "+publicationdate+" "+price);
 		
 		Connection conn=null;
 		PreparedStatement stmt=null;
 		try {
 			conn=JDBCUtil.getConnection();
-			String sql="update content_tbl set content=?,contentname=?,author=?,publisher=?,publicationdate=?,price=? where contentcode=?";
+			String sql="update content_tbl set genre=?,contentname=?,author=?,publisher=?,publicationdate=?,reservation=?,price=? where contentcode=?";
 			stmt=conn.prepareStatement(sql);
-			stmt.setString(1, content);
+			stmt.setString(1, genre);
 			stmt.setString(2, contentname);
 			stmt.setString(3, author);
 			stmt.setString(4, publisher);
 			stmt.setString(5, publicationdate);
-			stmt.setInt(6, price);
-			stmt.setInt(7, contentcode);
+			stmt.setString(6, reservation);
+			stmt.setInt(7, price);
+			stmt.setInt(8, contentcode);
 			
 			int cnt=stmt.executeUpdate();
 			

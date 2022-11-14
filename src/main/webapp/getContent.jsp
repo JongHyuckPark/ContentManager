@@ -57,7 +57,7 @@
 				<tr>
 					<td style="width: 200px;">제품종류</td>
 					<td style="width: 200px;">
-					<input type="text" value="${vo.content }" name="content"></td>
+					<input type="text" value="${vo.genre }" name="genre"></td>
 
 				</tr>
 				<tr>
@@ -80,22 +80,11 @@
 					<td style="width: 200px;"><input type="text"
 						value="${vo.publicationdate }" name="publicationdate"></td>
 				</tr>
-
 				<tr>
-					<td style="width: 200px;">대여일</td>
-					<td style="width: 200px;">${vo.rentaldate }</td>
-				</tr>
-				<tr>
-					<td style="width: 200px;">반납일</td>
-					<c:choose>
-						<c:when test="${empty vo.rentaldate}">
-							<td></td>
-						</c:when>
-						<c:otherwise>
-							<td>${vo.returndate }</td>
-						</c:otherwise>
-					</c:choose>
-				</tr>
+					<td style="width: 200px;">대출여부</td>
+					<td style="width: 200px;"><input type="text"
+						value="${vo.reservation }" name=reservation></td>
+				</tr>				
 				<tr>
 					<td style="width: 200px;">가격</td>
 					<td style="width: 200px;"><input type="text"
@@ -108,14 +97,6 @@
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<input type="submit" value="제품 수정" class="btn btn-primary">
-						<c:choose>
-							<c:when test="${empty vo.rentaldate}">
-									<input type="button" value="예약하기" onclick="reservation(); return false;" class="btn btn-primary">
-							</c:when>
-							<c:when test="${vo.rentaldate eq '예약 중'}">
-									<input type="button" value="예약취소" onclick="removeBook(); return false;" class="btn btn-primary">
-							</c:when>
-						</c:choose>
 					</td>
 				</tr>
 			</table>
@@ -130,15 +111,16 @@
 						<input type="hidden" value="${vo.contentcode }" name="contentcode">
 						<input type="hidden" value="${id }" name="id">
 						<input type="hidden" value="${name }" name="name">
-						<input type="hidden" value="${vo.content }" name="content">
+						<input type="hidden" value="${vo.genre }" name="genre">
 						<input type="hidden" value="${vo.contentname }" name="contentname">
 						<input type="hidden" value="${vo.rentaldate }" name="rentaldate">
+						<input type="hidden" value="${vo.reservation }" name="reservation">
 						<input type="hidden" value="${vo.price  }" name="price">
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 200px;">제품종류</td>
-					<td style="width: 200px;">${vo.content }</td>
+					<td style="width: 200px;">${vo.genre }</td>
 
 				</tr>
 				<tr>
@@ -157,21 +139,9 @@
 					<td style="width: 200px;">발행일</td>
 					<td style="width: 200px;">${vo.publicationdate }</td>
 				</tr>
-
 				<tr>
-					<td style="width: 200px;">대여일</td>
-					<td style="width: 200px;">${vo.rentaldate }</td>
-				</tr>
-				<tr>
-					<td style="width: 200px;">반납일</td>
-					<c:choose>
-						<c:when test="${empty vo.rentaldate}">
-							<td></td>
-						</c:when>
-						<c:otherwise>
-							<td>${vo.returndate }</td>
-						</c:otherwise>
-					</c:choose>
+					<td style="width: 200px;">대출여부</td>
+					<td style="width: 200px;">${vo.reservation }</td>
 				</tr>
 				<tr>
 					<td style="width: 200px;">가격</td>
@@ -180,19 +150,6 @@
 				<tr>
 					<td style="width: 200px;">조회수</td>
 					<td style="width: 200px;">${vo.cnt }</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
-						<c:choose>
-						<c:when test="${empty vo.rentaldate}">
-								<input type="button" value="예약하기" onclick="reservation(); return false;" class="btn btn-primary">
-						</c:when>
-						<c:when test="${vo.rentaldate eq '예약 중'}">
-								<input type="button" value="예약취소" onclick="removeBook(); return false;" class="btn btn-primary">
-						</c:when>
-					</c:choose>
-						
-					</td>
 				</tr>
 				
 			</table>
@@ -218,34 +175,4 @@
 
 </body>
 
-<script type="text/javascript">
-	function reservation(){
-		var id=document.book.id.value
-		var name=document.book.name.value
-		var contentcode=document.book.contentcode.value
-		var content=document.book.content.value
-		var contentname=document.book.contentname.value
-		var author=document.book.author.value
-		var price=document.book.price.value
-		
-		document.book.method="post";
-		document.book.action="ReservationCtrl";
-		document.book.submit();
-	}
-// 	예약 취소가 안 되고 있음.
-	function removeBook(){
-		if(!confirm("예약을 취소하시겠습니까?")){
-			
-		}else{
-			alert("예약이 취소되었습니다.")
-			var rentaldate=document.book.rentaldate.value
-			var contentcode=document.book.contentcode.value
-			var name=document.book.name.value
-			
-			document.book.method="post";
-			document.book.action="RemoveCtrl";
-			document.book.submit();
-		}
-	}
-</script>
 </html>

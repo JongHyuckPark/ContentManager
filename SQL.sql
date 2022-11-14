@@ -19,14 +19,12 @@ drop table users
 
 create table content_tbl(
 contentcode number(38) primary key, --코드
-content varchar2(3) not null,	--제품종류 
+genre varchar2(3) not null,	--제품종류 
 contentname varchar2(30) not null,	--제품이름
 author varchar2(30) not null,
 publisher varchar2(15),	--출판사
 publicationdate varchar2(15),	--발행일
-reservation varchar(3), --예약(대출가능 여부.)
---rentaldate varchar2(15),	--대여일
---returndate varchar2(15),	--반납일
+reservation varchar(3) default 0, --예약(대출가능 여부.)
 price number(8) not null,	--가격
 cnt number(10) default 0
 )
@@ -36,11 +34,11 @@ cnt number(10) default 0
 --returndate = if(content.eq 'c') rentaldate+7
 --returndate = if(content.eq 'd') rentaldate+5
 
-insert into content_tbl(contentcode,content,contentname,author,publisher,publicationdate,price)
+insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
 values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'n','가우스','저자','동아','2010-01-02',900);
-insert into content_tbl(contentcode,content,contentname,author,publisher,publicationdate,price)
+insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
 values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'c','그리스로마신화','저자','동아','2010-01-02',500);
-insert into content_tbl(contentcode,content,contentname,author,publisher,publicationdate,price)
+insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
 values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'d','타이타닉','저자','동아','2010-01-12',1200);
 
 select * from 
@@ -63,13 +61,33 @@ create table inout(
 id varchar2(12),
 name varchar2(12) not null,
 contentcode number(38),
-content varchar2(3) not null, 
+genre varchar2(3) not null, 
 contentname varchar2(30) not null,
-rentaldate varchar2(15) not null, --default sysdate,
-returndate varchar2(15) not null, --default sysdate+7,
+rentaldate date default sysdate, --default sysdate,
+returndate date , --default sysdate+7,
 price number(8) not null,
 primary key(id,contentcode)
 )
+
+insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
+from users u, content_tbl c, inout i
+where u.id=i.id(?) and c.contentcode=i.contentcode(?)
+order by i.rentaldate desc
+
+insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate(sysdate+7), c.price
+from users u, content_tbl c, inout i
+where u.id=i.id(?) and c.contentcode=i.contentcode(?)
+order by i.rentaldate desc
+
+
+select * from inout
+
+select u.id, u.name, c.contentcode, c.genre, c.contentname, c.rentaldate, c.returndate, c.price
+from users u, content c, inout i
+where u.id=i.id and c.contentcode=i.contentcode
+
 
 --id가 admin일 때만 확인가능/ 리스트화 / code별로 desc / 대출page / 
 --2개의 페이지 리스트page // 대출하기 page  
@@ -82,19 +100,54 @@ insert into inout(id,name,contentcode,content,contentname,author,rentaldate,retu
 values('admin','관리자',3,'c','타이타닉','저자','20220101','20220108',1200);
 --where절 사용해서 id값을 이용해서 users의 상세정보 볼 때, 빌린 내역 리스트화 하기.
 
-select u.id, u.name, c.contentcode, c.contentname, c.content, c.rentaldate, c.returndate, c.price
+select u.id, u.name, c.contentcode, c.contentname, c.genre, c.rentaldate, c.returndate, c.price
 from users u, content c, inout i
 where u.id=i.id and c.contentcode=i.contentcode
 order by i.rentaldate desc;
 
-select contentcode,content,contentname,author,publisher,publicationdate,rentaldate,returndate,price,cnt 
+select contentcode,genre,contentname,author,publisher,publicationdate,rentaldate,returndate,price,cnt 
 from content_tbl 
 where contentcode=?
 order by contentcode desc 
 
+insert into inout
+values(u.id, u.name, c.contentcode,c.genre,c.contentname,c.rentaldate,c.returndate,c.price)
+where 
+(select u.id, u.name, c.contentcode,c.genre,c.contentname,c.rentaldate,c.returndate,c.price
+from users u content c inout i
+where u.id=i.id and c.contentcode=i.contentcode
+order by i.rentaldate desc
+);
+
+select u.id, u.name, c.contentcode,c.contentname,c.genre,c.rentaldate,c.returndate,c.price
+from users u content c inout i
+where u.id=i.id and c.contentcode=i.contentcode
+order by i.rentaldate desc
+
+--옳은 insert문
+insert into inout(id,name,contentcode,contentname,genre,rentaldate,returndate,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname, c.rentaldate, c.returndate, c.price
+from users u, content c, inout i
+where u.id=i.id and c.contentcode=i.contentcode
+order by i.rentaldate desc
+
+insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname, c.rentaldate, c.returndate, c.price
+from users u, content c, inout i
+where u.id=i.id and c.contentcode=i.contentcode
+order by i.rentaldate desc
+
+UPDATE b_book T1 
+SET T1.bstate = (SELECT T2.bstate FROM b_borrow T2 WHERE T2.brbcode = T1.bcode),
+T1.rdate = (SELECT T2.rdate FROM b_borrow T2 WHERE T2.brbcode = T1.bcode) 
+WHERE T1.bcode IN (SELECT T2.brbcode FROM b_borrow T2 WHERE T2.brbcode = T1.bcode)
 
 
+update content c
 
+set 
+c.reservation = (select i.reservation from inout i where i.contentcode = c.contentcode),
+c.rentaldate = (select i.rentaldate from inout i where i.contentcode = c.contentcode)
 
-
+where c.contentcode in (select i.contentcode from inout i where i.contentcode = c.contentcode)
 

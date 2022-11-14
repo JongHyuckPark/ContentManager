@@ -51,7 +51,7 @@ public class GetContentCtrl extends HttpServlet{
 				
 				// 여기부터는 조회
 				
-				sql="select contentcode,content,contentname,author,publisher,publicationdate,rentaldate,returndate,price,cnt from content_tbl where contentcode=?";
+				sql="select contentcode,genre,contentname,author,publisher,publicationdate,reservation,price,cnt from content_tbl where contentcode=?";
 				stmt=conn.prepareStatement(sql);
 				stmt.setInt(1, contentcode);
 				rs=stmt.executeQuery();
@@ -61,13 +61,12 @@ public class GetContentCtrl extends HttpServlet{
 				if(rs.next()) {
 					vo=new ContentVO();
 					vo.setContentcode(rs.getInt("contentcode"));
-					vo.setContent(rs.getString("content"));
+					vo.setGenre(rs.getString("genre"));
 					vo.setContentname(rs.getString("contentname"));
 					vo.setAuthor(rs.getString("author"));
 					vo.setPublisher(rs.getString("publisher"));
 					vo.setPublicationdate(rs.getString("publicationdate"));
-					vo.setRentaldate(rs.getString("rentaldate"));
-					vo.setReturndate(rs.getString("returndate"));
+					vo.setReservation(rs.getString("reservation"));
 					vo.setPrice(rs.getInt("price"));
 					vo.setCnt(rs.getInt("cnt"));
 				}

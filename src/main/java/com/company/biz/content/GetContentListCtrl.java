@@ -33,7 +33,7 @@ public class GetContentListCtrl extends HttpServlet{
 			try {
 				conn=JDBCUtil.getConnection();
 				
-				String sql="select contentcode,content,contentname,author,publisher,publicationdate,rentaldate,returndate,price,cnt from content_tbl order by contentcode desc";
+				String sql="select contentcode,genre,contentname,author,publisher,publicationdate,reservation,price,cnt from content_tbl order by contentcode desc";
 
 				stmt=conn.prepareStatement(sql);
 				rs=stmt.executeQuery();
@@ -43,13 +43,12 @@ public class GetContentListCtrl extends HttpServlet{
 				while(rs.next()) {
 					ContentVO vo=new ContentVO();
 					vo.setContentcode(rs.getInt("contentcode"));
-					vo.setContent(rs.getString("content"));
+					vo.setGenre(rs.getString("genre"));
 					vo.setContentname(rs.getString("contentname"));
 					vo.setAuthor(rs.getString("author"));
 					vo.setPublisher(rs.getString("publisher"));
 					vo.setPublicationdate(rs.getString("publicationdate"));
-					vo.setRentaldate(rs.getString("rentaldate"));
-					vo.setReturndate(rs.getString("returndate"));
+					vo.setReservation(rs.getString("reservation"));
 					vo.setPrice(rs.getInt("price"));
 					vo.setCnt(rs.getInt("cnt"));
 					
