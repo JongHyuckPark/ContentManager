@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,11 +17,11 @@ import javax.servlet.http.HttpSession;
 import com.company.biz.common.JDBCUtil;
 import com.company.biz.vo.ContentVO;
 
-@WebServlet("/GetBoardCtrl")
-public class GetContentCtrl {
+@WebServlet("/GetContentCtrl")
+public class GetContentCtrl extends HttpServlet{
 
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			System.out.println("/GetBoardCtrl");
+			System.out.println("/GetContentCtrl");
 
 			// 1. 접속한 유저 이름 추출
 			// 로그인을 안했으면 로그인 페이지로 이동시킨다.
@@ -42,7 +43,7 @@ public class GetContentCtrl {
 				
 				// 조회수 1카운트 처리를 하는 구문
 				
-				String sql="update board set cnt=cnt+1 where contentcode=?";
+				String sql="update content_tbl set cnt=cnt+1 where contentcode=?";
 				stmt=conn.prepareStatement(sql);
 				stmt.setInt(1, contentcode);
 				stmt.executeUpdate();
@@ -50,7 +51,7 @@ public class GetContentCtrl {
 				
 				// 여기부터는 조회
 				
-				sql="select contentcode,content,contentname,publisher,publicationdate,rentaldate,returndate,price,cnt from board where contentcode=?";
+				sql="select contentcode,content,contentname,author,publisher,publicationdate,rentaldate,returndate,price,cnt from content_tbl where contentcode=?";
 				stmt=conn.prepareStatement(sql);
 				stmt.setInt(1, contentcode);
 				rs=stmt.executeQuery();
@@ -62,6 +63,7 @@ public class GetContentCtrl {
 					vo.setContentcode(rs.getInt("contentcode"));
 					vo.setContent(rs.getString("content"));
 					vo.setContentname(rs.getString("contentname"));
+					vo.setAuthor(rs.getString("author"));
 					vo.setPublisher(rs.getString("publisher"));
 					vo.setPublicationdate(rs.getString("publicationdate"));
 					vo.setRentaldate(rs.getString("rentaldate"));
@@ -102,7 +104,7 @@ public class GetContentCtrl {
 //				stmt.close();
 //				rs.close();
 				
-				RequestDispatcher dispatcher=request.getRequestDispatcher("getcontent.jsp");
+				RequestDispatcher dispatcher=request.getRequestDispatcher("getContent.jsp");
 				dispatcher.forward(request, response);
 				
 			} catch (SQLException e) {

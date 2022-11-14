@@ -4,6 +4,7 @@ public class ContentVO {
 	private int contentcode;
 	private String content;
 	private String contentname;
+	private String author;
 	private String publisher;
 	private String publicationdate;
 	private String rentaldate;
@@ -11,6 +12,14 @@ public class ContentVO {
 	private int  price;
 	private int cnt;
 	
+	
+	
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public int getCnt() {
 		return cnt;
 	}
@@ -68,9 +77,11 @@ public class ContentVO {
 	@Override
 	public String toString() {
 		return "ContentVO [contentcode=" + contentcode + ", content=" + content + ", contentname=" + contentname
-				+ ", publisher=" + publisher + ", publicationdate=" + publicationdate + ", rentaldate=" + rentaldate
-				+ ", returndate=" + returndate + ", price=" + price + ", cnt=" + cnt + "]";
+				+ ", author=" + author + ", publisher=" + publisher + ", publicationdate=" + publicationdate
+				+ ", rentaldate=" + rentaldate + ", returndate=" + returndate + ", price=" + price + ", cnt=" + cnt
+				+ "]";
 	}
+
 	
 
 	

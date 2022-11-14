@@ -18,6 +18,7 @@
 <div class="container" align="center">
 		<h1>게시판 제작 예제</h1>
 		<br> <br>
+		
 		<c:choose>
 			<c:when test="${empty name }">
 				<div style="width: 800px;">
@@ -26,17 +27,17 @@
 					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a>
 				</div>
 			</c:when>
-			<c:when test="${id eq 'Admin'}">
+			<c:when test="${id eq 'admin'}">
 				<div style="width: 800px;">
 					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> 
-					<a href="GetContentList" class="btn btn-primary">제품 리스트</a> 
-					<a href="GetContent" class="btn btn-primary">상품 정보 입력</a>
+					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a> 
+					<a href="JoinContentCtrl" class="btn btn-primary">상품 정보 입력</a>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div style="width: 800px;">
 					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> 
-					<a href="GetContentList" class="btn btn-primary">제품 리스트</a> 
+					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a> 
 				</div>
 			</c:otherwise>
 		</c:choose>
