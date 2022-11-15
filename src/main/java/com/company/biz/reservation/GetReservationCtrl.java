@@ -38,8 +38,8 @@ public class GetReservationCtrl extends HttpServlet {
 		
 		try {
 			conn=JDBCUtil.getConnection();
-			String sql="insert into inout(id,name,contentcode,genre,contentname,price) \r\n"
-					+ "select u.id, u.name, c.contentcode, c.genre, c.contentname, c.price \r\n"
+			String sql="insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) \r\n"
+					+ "select u.id, u.name, c.contentcode, c.genre, c.contentname,sysdate, sysdate+7, c.price \r\n"
 					+ "from users u, content_tbl c \r\n"
 					+ "where u.id=? and c.contentcode=?";
 			stmt=conn.prepareStatement(sql);

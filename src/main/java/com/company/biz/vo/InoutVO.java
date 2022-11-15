@@ -10,6 +10,8 @@ public class InoutVO {
 	private String returndate;
 	private int price;
 	
+
+
 	public String getRentaldate() {
 		return rentaldate;
 	}
@@ -59,12 +61,7 @@ public class InoutVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	@Override
-	public String toString() {
-		return "InputVO [id=" + id + ", name=" + name + ", contentcode=" + contentcode + ", genre=" + genre
-				+ ", contentname=" + contentname + ", rentaldate=" + rentaldate + ", returndate=" + returndate
-				+ ", price=" + price + "]";
-	}
+
 	
 	
 }

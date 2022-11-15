@@ -25,7 +25,9 @@
 					Guest님 환영합니다. <a href="index.jsp" class="btn btn-primary">이전 페이지</a>
 				</c:when>
 				<c:otherwise>
-					${name } 님 환영합니다... <a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
+					${name } 님 환영합니다... 
+					<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
+					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
 				</c:otherwise>
 			</c:choose>
 		</h3>

@@ -61,13 +61,41 @@ create table inout(
 id varchar2(12),
 name varchar2(12) not null,
 contentcode number(38),
-genre varchar2(3) not null, 
+genre varchar2(15) not null, 
 contentname varchar2(30) not null,
 rentaldate date default sysdate, --default sysdate,
 returndate date , --default sysdate+7,
 price number(8) not null,
 primary key(id,contentcode)
 )
+
+create table inout(
+id varchar2(12),
+name varchar2(12) not null,
+contentcode number(38),
+genre varchar2(15) not null, 
+contentname varchar2(30) not null,
+rentaldate date default sysdate, --default sysdate,
+returndate date default sysdate+7 , --default sysdate+7,
+price number(8) not null,
+primary key(id,contentcode)
+)
+
+
+create table inout3(
+rentaldate date default sysdate, --default sysdate,
+returndate date default sysdate+7 
+)
+
+insert into inout3 values(sysdate,sysdate+7)
+select * from inout3
+
+insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname, sysdate, sysdate+7, c.price
+from users u, content_tbl c
+where u.id='admin' and c.contentcode=1
+order by rentaldate desc
+
 
 insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
 select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
@@ -83,6 +111,8 @@ order by u.id desc
 --책이 이미 대출 중일 때 다른사람이 빌릴 수 없게 만들기
 --책을 3권을 초과해서 빌릴 수 없게 만들기.
 
+select id,name,contentcode,genre,contentname,rentaldate,returndate,price from inout where id='guest'
+
 insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
 select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
 from users u, content_tbl c, inout i
@@ -91,6 +121,8 @@ order by i.rentaldate desc
 
 
 select * from inout
+
+select id,name,contentcode,genre,contentname,to_char(rentaldate,'yyyy-mm-dd') as rentaldate,to_char(sysdate+7,'yyyy-mm-dd') as returndate,price from inout where id='guest'
 
 select u.id, u.name, c.contentcode, c.genre, c.contentname, c.rentaldate, c.returndate, c.price
 from users u, content c, inout i

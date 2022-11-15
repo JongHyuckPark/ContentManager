@@ -49,7 +49,9 @@
 	<div class="container" align="center">
 		<h3>제품 상세</h3>
 		<h3>
-			${name }님 로그인 환영합니다..... <a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
+			${name }님 로그인 환영합니다..... 
+			<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
+			<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
 		</h3>
 		<hr>
 

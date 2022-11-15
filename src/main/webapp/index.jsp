@@ -29,6 +29,7 @@
 			</c:when>
 			<c:when test="${id eq 'admin'}">
 				<div style="width: 800px;">
+					<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> 
 					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> 
 					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a> 
 					<a href="JoinContentCtrl" class="btn btn-primary">상품 정보 입력</a>
@@ -36,6 +37,7 @@
 			</c:when>
 			<c:otherwise>
 				<div style="width: 800px;">
+					<a href="UserInfo" class="btn btn-primary">내 정보 보기</a>
 					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> 
 					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a> 
 				</div>

@@ -20,7 +20,9 @@
 	</c:if>
 		
 	<div class="container" align="center">
-		<h3>새 글 등록하기... <a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> </h3>
+		<h3>새 글 등록하기...
+		<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
+		<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> </h3>
 		<hr>
 		<form name="addContent">
 			<table class="table" style="width: 1000px;">
