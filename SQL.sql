@@ -15,6 +15,7 @@ select * from users
 delete from users
 drop table users
 
+update users set password='test',name='테스트1',phone='010-9999-9999' where id='test'
 
 
 create table content_tbl(
@@ -56,6 +57,15 @@ update content_tbl set rentaldate=null where contentcode=1
 
 
 update content_tbl set rentaldate=sysdate where contentcode=3 and id=admin
+
+--책이름 검색
+select * from CONTENT_TBL where contentname like '%주술%'
+
+select * from CONTENT_TBL where 
+--제품종류 검색
+select * from CONTENT_TBL where genre like '%만화%'
+--저자 검색
+select * from CONTENT_TBL where author like '%저자%'
 
 create table inout(
 id varchar2(12),
@@ -120,6 +130,7 @@ where u.id=i.id and c.contentcode=i.contentcode
 order by i.rentaldate desc
 
 
+--inout 테이블 조회
 select * from inout
 
 select id,name,contentcode,genre,contentname,to_char(rentaldate,'yyyy-mm-dd') as rentaldate,to_char(sysdate+7,'yyyy-mm-dd') as returndate,price from inout where id='guest'
@@ -150,11 +161,9 @@ from content_tbl
 where contentcode=?
 order by contentcode desc 
 
-
-select u.id, u.name, c.contentcode,c.contentname,c.genre,c.rentaldate,c.returndate,c.price
-from users u content c inout i
-where u.id=i.id and c.contentcode=i.contentcode
-order by i.rentaldate desc
+--종혁이형 내정보 대출리스트
+select * from INOUT
+where id = 'admin'
 
 --옳은 insert문
 insert into inout(id,name,contentcode,contentname,genre,rentaldate,returndate,price) 
@@ -183,3 +192,6 @@ c.rentaldate = (select i.rentaldate from inout i where i.contentcode = c.content
 
 where c.contentcode in (select i.contentcode from inout i where i.contentcode = c.contentcode)
 
+--inout 테이블에서 대출 목록 조회
+select id,name,contentcode,genre,contentname,to_char(rentaldate,'yyyy-mm-dd') as rentaldate,to_char(rentaldate+7,'yyyy-mm-dd') as returndate,price 
+from inout where id='admin'

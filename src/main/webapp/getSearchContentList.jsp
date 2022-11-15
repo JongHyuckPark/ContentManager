@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 목록</title>
+<title>검색 글 목록</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -25,14 +25,12 @@
 					Guest님 환영합니다. <a href="index.jsp" class="btn btn-primary">이전 페이지</a>
 				</c:when>
 				<c:otherwise>
-					${name } 님 환영합니다... 
-					<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
-					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
+					${name } 님 환영합니다... <a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
 				</c:otherwise>
 			</c:choose>
 		</h3>
 
-<!-- 		최초 검색코드 시작부분 -->
+<!-- 		검색코드 시작부분 -->
 		<form action="GetSearchCtrl" method="post">
 			<table class="table" style="width: 800px;">
 				<tr>
@@ -72,22 +70,22 @@
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${contentList }" var="content" varStatus="status">
+					<c:forEach items="${contentList }" var="contentList" varStatus="status">
 						<tr>
 							<c:choose>
 								<c:when test="${id eq 'admin' }">
-									<td style="width: 200px;">${content.contentcode }</td>
+									<td style="width: 200px;">${contentList.contentcode }</td>
 								</c:when>
 							</c:choose>
-							<td style="width: 100px;">${content.genre }</td>
-							<td style="width: 150px;"><a href="GetContentCtrl?contentcode=${content.contentcode }">${content.contentname }</a>
+							<td style="width: 100px;">${contentList.genre }</td>
+							<td style="width: 150px;"><a href="GetContentCtrl?contentcode=${contentList.contentcode }">${contentList.contentname }</a>
 							</td>
-							<td style="width: 100px;">${content.author }</td>
-							<td style="width: 150px;">${content.publisher }</td>
-							<td style="width: 100px;">${content.publicationdate }</td>
-							<td style="width: 100px;">${content.reservation }</td>
-							<td style="width: 100px;">${content.price }</td>
-							<td style="width: 100px;">${content.cnt }</td>
+							<td style="width: 100px;">${contentList.author }</td>
+							<td style="width: 150px;">${contentList.publisher }</td>
+							<td style="width: 100px;">${contentList.publicationdate }</td>
+							<td style="width: 100px;">${contentList.reservation }</td>
+							<td style="width: 100px;">${contentList.price }</td>
+							<td style="width: 100px;">${contentList.cnt }</td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
