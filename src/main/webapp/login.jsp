@@ -20,12 +20,12 @@
 			<table class="table" style="width:400px;">
 				<tr>
 					<td>아이디</td>
-					<td> <input type="text" name="id" value="admin"> </td>
+					<td> <input type="text" name="id" value="choi"> </td>
 				</tr>
 				
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" name="password" value="admin123"></td>
+					<td><input type="password" name="password" value="123"></td>
 				</tr>
 				
 				<tr>
