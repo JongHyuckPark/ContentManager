@@ -65,7 +65,6 @@
 				<th style="width: 100px;">가격</th>
 				<th style="width: 100px;">조회수</th>
 			</tr>
-			
 			<c:choose>
 				<c:when test="${empty contentList}">
 					<tr>
