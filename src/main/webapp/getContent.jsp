@@ -141,7 +141,8 @@
 				</tr>
 				<tr>
 					<td style="width: 200px;">대출여부</td>
-					<td style="width: 200px;">${vo.reservation }</td>
+					<td style="width: 200px;"><input type="text"
+						value="${vo.reservation }" name=reservation readonly></td>
 				</tr>
 				<tr>
 					<td style="width: 200px;">가격</td>
@@ -168,7 +169,12 @@
 		}
 		%>
 		<a href="GetContentListCtrl">글목록</a>&nbsp;&nbsp;&nbsp;
-		<a href="ReservationCtrl?contentcode=${vo.contentcode }">대출하기</a>
+		<c:choose>
+			<c:when test="${vo.reservation eq 'Y'}">
+				<a href="ReservationCtrl?contentcode=${vo.contentcode }">대출하기</a>
+			</c:when>
+		</c:choose>
+
 		 <br> <br> <br>
 		<br>
 

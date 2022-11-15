@@ -38,18 +38,27 @@ public class GetReservationCtrl extends HttpServlet {
 		
 		try {
 			conn=JDBCUtil.getConnection();
-			String sql="insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) \r\n"
-					+ "select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price \r\n"
-					+ "from users u, content_tbl c, inout i \r\n"
-					+ "where u.id=? and c.contentcode=? \r\n"
-					+ "order by i.rentaldate desc";
+			String sql="insert into inout(id,name,contentcode,genre,contentname,price) \r\n"
+					+ "select u.id, u.name, c.contentcode, c.genre, c.contentname, c.price \r\n"
+					+ "from users u, content_tbl c \r\n"
+					+ "where u.id=? and c.contentcode=?";
 			stmt=conn.prepareStatement(sql);
 			stmt.setString(1,id);
 			stmt.setInt(2,contentcode);
 			
 			int cnt1=stmt.executeUpdate();
 			
-			if(cnt1>0)
+
+			stmt.close();
+			
+			sql="update content_tbl set reservation=? where contentcode=?";
+			stmt=conn.prepareStatement(sql);
+			stmt.setString(1, "N");
+			stmt.setInt(2, contentcode);
+			
+			int cnt2= stmt.executeUpdate();
+			
+			if(cnt2>0)
 				response.sendRedirect("GetContentListCtrl");
 			
 		} catch (SQLException e) {

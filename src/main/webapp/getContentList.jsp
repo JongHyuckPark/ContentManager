@@ -49,7 +49,11 @@
 
 		<table class="table" style="width: 1100px;">
 			<tr>
-				<th style="width: 200px;">제품번호</th>
+				<c:choose>
+					<c:when test="${id eq 'admin' }">
+					<th style="width: 200px;">제품번호</th>
+					</c:when>
+				</c:choose>
 				<th style="width: 100px;">제품종류</th>
 				<th style="width: 150px;">제목</th>
 				<th style="width: 100px;">저자</th>

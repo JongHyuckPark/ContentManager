@@ -19,12 +19,12 @@ drop table users
 
 create table content_tbl(
 contentcode number(38) primary key, --코드
-genre varchar2(3) not null,	--제품종류 
+genre varchar2(15) not null,	--제품종류 
 contentname varchar2(30) not null,	--제품이름
 author varchar2(30) not null,
 publisher varchar2(15),	--출판사
 publicationdate varchar2(15),	--발행일
-reservation varchar(3) default 0, --예약(대출가능 여부.)
+reservation varchar(3) default 'Y', --예약(대출가능 여부.)
 price number(8) not null,	--가격
 cnt number(10) default 0
 )
@@ -35,11 +35,11 @@ cnt number(10) default 0
 --returndate = if(content.eq 'd') rentaldate+5
 
 insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
-values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'n','가우스','저자','동아','2010-01-02',900);
+values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'소설','가우스','저자','동아','2010-01-02',900);
 insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
-values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'c','그리스로마신화','저자','동아','2010-01-02',500);
+values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'만화','그리스로마신화','저자','동아','2010-01-02',500);
 insert into content_tbl(contentcode,genre,contentname,author,publisher,publicationdate,price)
-values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'d','타이타닉','저자','동아','2010-01-12',1200);
+values(((select nvl(max(contentcode)+1,000001) from content_tbl)),'DVD','타이타닉','저자','동아','2010-01-12',1200);
 
 select * from 
 (select rownum as rnum,c.* from
@@ -78,8 +78,10 @@ order by i.rentaldate desc
 insert into inout(id,name,contentcode,genre,contentname,price) 
 select u.id, u.name, c.contentcode, c.genre, c.contentname,c.price
 from users u, content_tbl c
-where u.id='admin' and c.contentcode=1
+where u.id='test' and c.contentcode=1
 order by u.id desc
+--책이 이미 대출 중일 때 다른사람이 빌릴 수 없게 만들기
+--책을 3권을 초과해서 빌릴 수 없게 만들기.
 
 insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
 select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
