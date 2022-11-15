@@ -43,7 +43,7 @@
 		if (id.equals("admin")) {
 		%>
 
-		<form action="UpdateContentCtrl" method="post" name="book">
+		<form action="UpdateContentCtrl" method="post">
 			<table class="table" style="width: 800px;">
 				<tr>
 					<td style="width: 200px;">제품코드</td>
@@ -162,13 +162,14 @@
 		<%
 		if (id.equals("admin")) {
 		%>
-		<a href="JoinContentCtrl">제품등록</a>&nbsp;&nbsp;&nbsp; <a
-			href="DeleteContentCtrl?contentcode=${vo.contentcode }">제품삭제</a>&nbsp;&nbsp;&nbsp;
+		<a href="JoinContentCtrl">제품등록</a>&nbsp;&nbsp;&nbsp; 
+		<a href="DeleteContentCtrl?contentcode=${vo.contentcode }">제품삭제</a>&nbsp;&nbsp;&nbsp;
 		<%
 		}
 		%>
-		<a href="GetContentListCtrl">글목록</a>
-		<br> <br> <br> <br>
+		<a href="GetContentListCtrl">글목록</a>&nbsp;&nbsp;&nbsp;
+		<a href="ReservationCtrl?contentcode=${vo.contentcode }">대출하기</a>
+		 <br> <br> <br>
 		<br>
 
 	</div>

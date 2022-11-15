@@ -72,13 +72,19 @@ primary key(id,contentcode)
 insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
 select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
 from users u, content_tbl c, inout i
-where u.id=i.id(?) and c.contentcode=i.contentcode(?)
+where u.id=? and c.contentcode=?
 order by i.rentaldate desc
 
+insert into inout(id,name,contentcode,genre,contentname,price) 
+select u.id, u.name, c.contentcode, c.genre, c.contentname,c.price
+from users u, content_tbl c
+where u.id='admin' and c.contentcode=1
+order by u.id desc
+
 insert into inout(id,name,contentcode,genre,contentname,rentaldate,returndate,price) 
-select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate(sysdate+7), c.price
+select u.id, u.name, c.contentcode, c.genre, c.contentname, i.rentaldate, i.returndate, c.price
 from users u, content_tbl c, inout i
-where u.id=i.id(?) and c.contentcode=i.contentcode(?)
+where u.id=i.id and c.contentcode=i.contentcode
 order by i.rentaldate desc
 
 
@@ -110,14 +116,6 @@ from content_tbl
 where contentcode=?
 order by contentcode desc 
 
-insert into inout
-values(u.id, u.name, c.contentcode,c.genre,c.contentname,c.rentaldate,c.returndate,c.price)
-where 
-(select u.id, u.name, c.contentcode,c.genre,c.contentname,c.rentaldate,c.returndate,c.price
-from users u content c inout i
-where u.id=i.id and c.contentcode=i.contentcode
-order by i.rentaldate desc
-);
 
 select u.id, u.name, c.contentcode,c.contentname,c.genre,c.rentaldate,c.returndate,c.price
 from users u content c inout i

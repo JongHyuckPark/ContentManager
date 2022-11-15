@@ -7,12 +7,26 @@ public class ContentVO {
 	private String author;
 	private String publisher;
 	private String publicationdate;
+	private String rentaldate;
+	private String returndate;
 	private String reservation;
 	private int  price;
 	private int cnt;
 	
 	
 	
+	public String getRentaldate() {
+		return rentaldate;
+	}
+	public void setRentaldate(String rentaldate) {
+		this.rentaldate = rentaldate;
+	}
+	public String getReturndate() {
+		return returndate;
+	}
+	public void setReturndate(String returndate) {
+		this.returndate = returndate;
+	}
 	public String getReservation() {
 		return reservation;
 	}
@@ -67,6 +81,7 @@ public class ContentVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
 	@Override
 	public String toString() {
 		return "ContentVO [contentcode=" + contentcode + ", genre=" + genre + ", contentname=" + contentname
