@@ -9,11 +9,14 @@ phone varchar2(20)
 
 insert into users values('admin','admin123','관리자','010-1111-2222');
 insert into users values('guest','guest123','손님','010-2222-3333');
-insert into users values('test','test123','테스트','010-3333-4444');
+insert into users values('test','123','테스트','010-3333-4444');
+insert into users values('abc','123','123','123');
 
 select * from users
 delete from users
 drop table users
+
+delete from users where id='abc1'
 
 update users set password='test',name='테스트1',phone='010-9999-9999' where id='test'
 
@@ -195,3 +198,27 @@ where c.contentcode in (select i.contentcode from inout i where i.contentcode = 
 --inout 테이블에서 대출 목록 조회
 select id,name,contentcode,genre,contentname,to_char(rentaldate,'yyyy-mm-dd') as rentaldate,to_char(rentaldate+7,'yyyy-mm-dd') as returndate,price 
 from inout where id='admin'
+
+delete from users u where u.id=(select i.id from inout i where u.id=i.id and i.id='abc1');
+
+delete from users u
+where exists
+(select 1
+from inout i
+where u.id=i.id
+and i.id='abc1'
+);
+
+select * from users u
+where u.id=
+(select i.id 
+from inout i
+where u.id=i.id)
+
+DELETE FROM EMP A
+ WHERE EXISTS (
+        SELECT 1
+          FROM DEPT B
+         WHERE A.DEPTNO = B.DEPTNO
+           AND B.DEPTNO = '20'
+        );

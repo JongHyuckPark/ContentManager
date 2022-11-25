@@ -33,7 +33,7 @@ public class DeleteContentCtrl extends HttpServlet {
 			stmt.setInt(1, contentcode);
 
 			int cnt = stmt.executeUpdate();
-
+			
 			System.out.println(cnt + "개 레코드 삭제");
 
 			out.print("<script>alert('글 삭제 완료');location.href='GetContentListCtrl';</script>");

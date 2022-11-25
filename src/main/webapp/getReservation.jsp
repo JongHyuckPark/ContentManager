@@ -47,7 +47,7 @@
 	// 	ArrayList<ReplyBoardVO> replyList=(ArrayList<ReplyBoardVO>)request.getAttribute("replyList");
 	%>
 	<div class="container" align="center">
-		<h3>제품 상세</h3>
+		<h3>제품 대여</h3>
 		<h3>
 			${name }님 로그인 환영합니다..... 
 			<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
