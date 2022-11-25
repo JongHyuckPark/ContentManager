@@ -56,6 +56,7 @@ public class GetContentListCtrl extends HttpServlet{
 				}
 				
 				request.setAttribute("contentList", contentList);
+				System.out.println(contentList);
 				
 				RequestDispatcher dispatcher=request.getRequestDispatcher("getContentList.jsp");
 				dispatcher.forward(request, response);

@@ -12,11 +12,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
-<title>Index Page!!!!!!!</title>
+<title>Index Page</title>
 </head>
 <body>
 <div class="container" align="center">
-		<h1>게시판 제작 예제</h1>
+		<h1>목차</h1>
 		<br> <br>
 		
 		<c:choose>
@@ -30,7 +30,8 @@
 			<c:when test="${id eq 'admin'}">
 				<div style="width: 800px;">
 					<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> 
-					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> 
+					<a href="UserListCtrl" class="btn btn-primary">유저 리스트 보기</a> 
+					<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> <br><br><br>
 					<a href="GetContentListCtrl" class="btn btn-primary">제품 리스트</a> 
 					<a href="JoinContentCtrl" class="btn btn-primary">상품 정보 입력</a>
 				</div>

@@ -16,7 +16,6 @@ public class LogoutCtrl extends HttpServlet {
 		HttpSession session=request.getSession();
 		session.invalidate();
 		// 세션을 무효화하여 로그아웃 처리 후 다시 로그인페이지로 요청 재지정.
-		
 		response.sendRedirect("index.jsp");
 	}
 

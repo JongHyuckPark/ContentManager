@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 목록</title>
+<title>제품 목록</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -18,7 +18,7 @@
 <body>
 
 	<div class="container" align="center">
-		<h1>글 목록</h1>
+		<h1>제품 목록</h1>
 		<h3>
 			<c:choose>
 				<c:when test="${empty name}">

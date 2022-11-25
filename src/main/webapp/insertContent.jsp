@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>새 글 등록</title>
+<title>제품 등록</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
@@ -20,7 +20,7 @@
 	</c:if>
 		
 	<div class="container" align="center">
-		<h3>새 글 등록하기...
+		<h3>제품 등록
 		<a href="UserInfo" class="btn btn-primary">내 정보 보기</a> &nbsp;&nbsp;&nbsp;
 		<a href="LogoutCtrl" class="btn btn-primary">로그아웃</a> </h3>
 		<hr>

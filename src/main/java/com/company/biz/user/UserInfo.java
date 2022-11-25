@@ -68,7 +68,7 @@ public class UserInfo extends HttpServlet {
 			stmt.setString(1, id);
 			rs=stmt.executeQuery();
 			
-			ArrayList<InoutVO> usersList=new ArrayList<InoutVO>();
+			ArrayList<InoutVO> usersRVList=new ArrayList<InoutVO>();
 			InoutVO ivo = null;
 			while(rs.next()) {
 				System.out.println("진입");
@@ -84,10 +84,10 @@ public class UserInfo extends HttpServlet {
 				ivo.setReturndate(rs.getString("returndate"));
 				ivo.setPrice(rs.getInt("price"));
 				
-				usersList.add(ivo);
+				usersRVList.add(ivo);
 			}
 			
-			request.setAttribute("usersList", usersList);
+			request.setAttribute("usersRVList", usersRVList);
 
 			RequestDispatcher dispatcher=request.getRequestDispatcher("userInfo.jsp");
 			dispatcher.forward(request, response);

@@ -27,20 +27,15 @@
 	String id = (String) session.getAttribute("id");
 	String name = (String) session.getAttribute("name");
 
-	//2. Servlet이 전달한 데이터를 받는다.
-	UserVO uvo = (UserVO) request.getAttribute("uvo");
-
-	// 답글 데이터 받기
-	// 	ArrayList<ReplyBoardVO> replyList=(ArrayList<ReplyBoardVO>)request.getAttribute("replyList");
 	%>
 	<div class="container" align="center">
-		<h3>제품 상세</h3>
+		<h3>내 정보</h3>
 		<h3>
 			${name }님 로그인 환영합니다..... <a href="LogoutCtrl" class="btn btn-primary">로그아웃</a>
 		</h3>
 		<hr>
 		
-		<form action="UpdateUserInfo" method="post">
+		<form action="UpdateUserInfo" method="post" name="userInfo">
 			<table class="table" style="width: 800px;">
 				<tr>
 					<td style="width: 200px;">ID</td>
@@ -68,6 +63,12 @@
 				<tr>
 					<td colspan="2" style="text-align: center;">
 						<input type="submit" value="정보 수정" class="btn btn-primary">
+					<c:choose>
+						<c:when test="${empty usersRVList}">
+							<button onclick="deleteUser();return false;" class="btn btn-primary">회원 탈퇴</button>
+<!-- 							<button type="button" onclick="deleteUser();return false;" value="회원 탈퇴" class="btn btn-primary"> -->
+						</c:when>
+					</c:choose>
 					</td>
 				</tr>
 			</table>
@@ -85,24 +86,24 @@
 				<th style="width: 100px;">반납</th>
 			</tr>
 			<c:choose>
-				<c:when test="${empty usersList}">
+				<c:when test="${empty usersRVList}">
 					<tr>
 						<td align="center" colspan="8">대출내역이 없습니다.</td>
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${usersList }" var="users" varStatus="status">
+					<c:forEach items="${usersRVList }" var="usersRVList" varStatus="status">
 						<tr>
-							<td style="width: 200px;">${users.contentcode }
+							<td style="width: 200px;">${usersRVList.contentcode }
 							</td>
-							<td style="width: 100px;">${users.genre }
-								<input type="hidden" value="${users.id }" name="id">
-								<input type="hidden" value="${users.contentcode }" name="contentcode">
+							<td style="width: 100px;">${usersRVList.genre }
+								<input type="hidden" value="${usersRVList.id }" name="id">
+								<input type="hidden" value="${usersRVList.contentcode }" name="contentcode">
 							</td>
-							<td style="width: 150px;">${users.contentname}</td>
-							<td style="width: 100px;">${users.rentaldate }</td>
-							<td style="width: 150px;">${users.returndate }</td>
-							<td style="width: 100px;">${users.price }</td>
+							<td style="width: 150px;">${usersRVList.contentname}</td>
+							<td style="width: 100px;">${usersRVList.rentaldate }</td>
+							<td style="width: 150px;">${usersRVList.returndate }</td>
+							<td style="width: 100px;">${usersRVList.price }</td>
 							<td style="width: 100px;"> <input type="button" value="반납" class="btn btn-primary" 
 								onclick="returnContent();return false;"> 
 							</td>
@@ -128,6 +129,20 @@
 				document.reservationList.submit();
 			}
 		 }
+		
+		function deleteUser(){
+		    if (!confirm("회원탈퇴 하시겠습니까?")) {
+		    	alert('취소되었습니다.');
+		    } else {
+				alert('회원탈퇴에 성공하였습니다.');
+				var id=document.userInfo.id.value;
+				
+				document.userInfo.method="post";
+				document.userInfo.action="DeleteUserCtrl";
+				document.userInfo.submit();
+			}
+		}
+		
 
 	</script>
 </body>
